@@ -1,16 +1,14 @@
-import { Route, Routes } from 'react-router-dom';
+import useAuthStore from '@/stores/useAuthStore';
+import { useEffect } from 'react';
 
-function App() {
-    return (
-        <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-green-900 dark:text-gray-100">
-            <Routes>
-                <Route
-                    path="/"
-                    element={<h1 className="text-3xl font-bold p-4">Kanban Board</h1>}
-                />
-            </Routes>
-        </div>
-    );
-}
+const App = () => {
+    const restore = useAuthStore((state) => state.actions.restore);
+
+    useEffect(() => {
+        restore();
+    }, [restore]);
+
+    return <div></div>;
+};
 
 export default App;
