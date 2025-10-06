@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { api } from '@/api/axios';
+import { api } from '@/api';
 import { TUser } from '@/types';
 
 type TAuthActions = {
@@ -12,40 +12,80 @@ type TAuthActions = {
 type TAuthState = {
     user: TUser | null;
     token: string | null;
+    isRestored: boolean;
     actions: TAuthActions;
 };
 
 const useAuthStore = create<TAuthState>((set) => ({
     user: null,
     token: null,
+    isRestored: false,
 
     actions: {
-        login: async (email, password) => {
-            const res = await api.get<TUser[]>('/users', { params: { email, password } });
+        register: async (name, email, password) => {
+            try {
+                const { data } = await api.get<TUser[]>('/users', { params: { email } });
 
-            if (res.data.length === 0) throw new Error('Неверный email или пароль');
+                if (data.length > 0) throw new Error('Пользователь с таким email уже существует');
 
-            const user = res.data[0];
-            const token = user.id;
-            localStorage.setItem('auth_user', JSON.stringify(user));
-            localStorage.setItem('auth_token', token);
+                const { data: newUser } = await api.post<TUser>('/users', {
+                    name,
+                    email,
+                    password,
+                });
 
-            set({ user, token });
+                const safeUser = {
+                    id: newUser.id,
+                    name: newUser.name,
+                    email: newUser.email,
+                };
+
+                const token = newUser.id;
+                localStorage.setItem('auth_user', JSON.stringify(safeUser));
+                localStorage.setItem('auth_token', token);
+
+                set({ user: safeUser, token });
+            } catch (err) {
+                console.error('Ошибка при регистрации: ', err);
+
+                if (err instanceof Error) {
+                    throw err;
+                } else {
+                    throw new Error('Не удалось зарегестрировать пользователя');
+                }
+            }
         },
 
-        register: async (name, email, password) => {
-            const exists = await api.get<TUser[]>('/users', { params: { email } });
+        login: async (email, password) => {
+            try {
+                const res = await api.get<TUser[]>('/users', { params: { email } });
 
-            if (exists.data.length > 0)
-                throw new Error('Пользователь с таким email уже существует');
+                if (res.data.length === 0) throw new Error('Неверный email или пароль');
 
-            const res = await api.post<TUser>('/users', { name, email, password });
-            const user = res.data;
-            const token = user.id;
-            localStorage.setItem('auth_user', JSON.stringify(user));
-            localStorage.setItem('auth_token', token);
+                const user = res.data[0];
 
-            set({ user, token });
+                if (user.password !== password) throw new Error('Неверный email или пароль');
+
+                const token = user.id;
+                const safeUser = {
+                    id: user.id,
+                    name: user.name,
+                    email: user.email,
+                };
+
+                localStorage.setItem('auth_user', JSON.stringify(safeUser));
+                localStorage.setItem('auth_token', token);
+
+                set({ user: safeUser, token });
+            } catch (err) {
+                console.error('Ошибка при логине: ', err);
+
+                if (err instanceof Error) {
+                    throw err;
+                } else {
+                    throw new Error('Ошибка при авторизации');
+                }
+            }
         },
 
         logout: () => {
@@ -68,6 +108,8 @@ const useAuthStore = create<TAuthState>((set) => ({
                     localStorage.removeItem('auth_token');
                 }
             }
+
+            set({ isRestored: true });
         },
     },
 }));

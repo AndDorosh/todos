@@ -11,3 +11,17 @@ export type TTodo = {
     status: 'todo' | 'in-progress' | 'done';
     userId: string;
 };
+
+export type TColumn = {
+    id: string;
+    title: string;
+    order: number;
+};
+
+export type TTask = {
+    id: string;
+    title: string;
+    description?: string;
+    columnId: string;
+    order: number;
+};
