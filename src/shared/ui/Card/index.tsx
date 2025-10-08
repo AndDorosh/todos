@@ -1,11 +1,12 @@
 import { clsx } from 'clsx';
+import { FC } from 'react';
 
 interface ICardProps {
     children: React.ReactNode;
     className?: string;
 }
 
-export const Card = ({ children, className }: ICardProps) => {
+export const Card: FC<ICardProps> = ({ children, className }) => {
     return (
         <div
             className={clsx(

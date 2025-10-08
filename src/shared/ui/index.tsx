@@ -3,3 +3,4 @@ export { Input } from './Input';
 export { Card } from './Card';
 export { Loader } from './Loader';
 export { ThemeToggle } from './ThemeToggle';
+export { Container } from './Container';

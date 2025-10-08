@@ -4,6 +4,7 @@ import React from 'react';
 interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: 'primary' | 'secondary' | 'danger';
     fullWidth?: boolean;
+    loading?: boolean;
 }
 
 export const Button = ({
@@ -11,11 +12,17 @@ export const Button = ({
     variant = 'primary',
     fullWidth,
     className,
+    loading = false,
+    disabled,
     ...props
 }: IButtonProps) => {
+    const isDisabled = disabled || loading;
+
     return (
         <button
             {...props}
+            disabled={isDisabled}
+            aria-busy={loading || null}
             className={clsx(
                 'px-4 py-2 rounded-lg font-medium transition-colors duration-200',
                 fullWidth && 'w-full',
@@ -27,7 +34,18 @@ export const Button = ({
                 className
             )}
         >
-            {children}
+            {loading && (
+                <span
+                    aria-hidden="true"
+                    className="inline-block w-4 h-4 mr-2 border-2 border-current border-t-transparent rounded-full animate-spin"
+                />
+            )}
+
+            {children ? (
+                <span>{children}</span>
+            ) : loading ? (
+                <span className="sr-only">Loading</span>
+            ) : null}
         </button>
     );
 };

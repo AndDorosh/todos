@@ -21,7 +21,8 @@ export type TColumn = {
 export type TTask = {
     id: string;
     title: string;
-    description?: string;
+    description?: string | null;
     columnId: string;
     order: number;
+    userId: string;
 };
