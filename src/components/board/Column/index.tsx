@@ -47,13 +47,13 @@ const Column: FC<{ column: TColumn }> = ({ column }) => {
     };
 
     return (
-        <div className="bg-gray-100 dark:bg-gray-800 rounded-2xl p-4 min-h-[200px] flex flex-col">
+        <div className="bg-gray-100 dark:bg-gray-800 rounded-2xl p-4 min-h-[200px] flex flex-1 flex-col">
             <div className="flex items-center justify-between mb-3">
                 <h3 className="font-semibold text-gray-700 dark:text-gray-100">{column.title}</h3>
                 <span className="text-xs text-gray-500 dark:text-gray-300">{tasks.length}</span>
             </div>
 
-            <div className="flex-1 overflow-auto">
+            <div className="flex-1 overflow-visible">
                 {tasks.map((task) => (
                     <TaskCard key={task.id} task={task} />
                 ))}

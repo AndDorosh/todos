@@ -17,7 +17,7 @@ const Navbar: FC<{ className?: string }> = ({ className }) => {
     return (
         <header
             className={clsx(
-                'w-full flex items-center justify-between gap-4 px-4 py-3 border-b bg-white dark:bg-gray-900',
+                'w-full flex items-center justify-between gap-4 py-3 border-b bg-white dark:bg-gray-900',
                 'border-gray-200 dark:border-gray-800',
                 className
             )}
@@ -29,7 +29,7 @@ const Navbar: FC<{ className?: string }> = ({ className }) => {
                         className="text-lg font-semibold text-gray-800 dark:text-gray-100 hover:opacity-90"
                         aria-label="Перейти на главную"
                     >
-                        Kanban<span className="text-blue-500">.</span>
+                        Kanban<span className="text-blue-300">.</span>
                     </Button>
                     <span className="hidden sm:inline text-sm text-gray-500 dark:text-gray-300">
                         Управляй задачами просто

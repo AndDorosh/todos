@@ -8,7 +8,9 @@ type TContainerProps = {
 
 export const Container: FC<TContainerProps> = ({ children, className }) => {
     return (
-        <div className={clsx('max-w-[1440px] mx-auto w-full px-4 flex justify-between', className)}>
+        <div
+            className={clsx('max-w-[1440px] mx-auto w-full px-12 flex justify-between', className)}
+        >
             {children}
         </div>
     );
