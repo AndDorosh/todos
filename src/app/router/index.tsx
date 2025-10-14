@@ -3,7 +3,7 @@ import LoginPage from '@/pages/Login';
 import RegisterPage from '@/pages/Register';
 import useAuthStore from '@/stores/useAuthStore';
 import { useEffect } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { HashRouter, Navigate, Route, Routes } from 'react-router-dom';
 
 const AppRouter = () => {
     const user = useAuthStore((state) => state.user);
@@ -23,20 +23,22 @@ const AppRouter = () => {
     }
 
     return (
-        <Routes>
-            {!user ? (
-                <>
-                    <Route path="/login" element={<LoginPage />} />
-                    <Route path="/register" element={<RegisterPage />} />
-                    <Route path="*" element={<Navigate to="/login" replace />} />
-                </>
-            ) : (
-                <>
-                    <Route path="/" element={<BoardPage />} />
-                    <Route path="*" element={<Navigate to="/" replace />} />
-                </>
-            )}
-        </Routes>
+        <HashRouter>
+            <Routes>
+                {!user ? (
+                    <>
+                        <Route path="/login" element={<LoginPage />} />
+                        <Route path="/register" element={<RegisterPage />} />
+                        <Route path="*" element={<Navigate to="/login" replace />} />
+                    </>
+                ) : (
+                    <>
+                        <Route path="/" element={<BoardPage />} />
+                        <Route path="*" element={<Navigate to="/" replace />} />
+                    </>
+                )}
+            </Routes>
+        </HashRouter>
     );
 };
 

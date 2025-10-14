@@ -1,8 +1,7 @@
+import '@/styles/index.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
 import App from './App';
-import '@/styles/index.css';
 
 const saved = localStorage.getItem('theme'); // 'dark' | 'light' | null
 if (saved === 'dark') {
@@ -17,8 +16,6 @@ const root = ReactDOM.createRoot(rootEl);
 
 root.render(
     <React.StrictMode>
-        <BrowserRouter>
-            <App />
-        </BrowserRouter>
+        <App />
     </React.StrictMode>
 );
