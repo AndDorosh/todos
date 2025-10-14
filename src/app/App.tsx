@@ -1,7 +1,7 @@
-import useAuthStore from '@/stores/useAuthStore';
+import useAuthStore from '@/stores/useAuthStore.js';
 import { useEffect } from 'react';
-import AppRouter from './router';
-import useThemeStore from '@/stores/useThemeStore';
+import AppRouter from './router/index.js';
+import useThemeStore from '@/stores/useThemeStore.js';
 import clsx from 'clsx';
 import bgDarkImage from '@/images/webb-dark.png';
 import bgWhiteImage from '@/images/webb-white.png';

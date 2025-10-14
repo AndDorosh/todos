@@ -1,5 +1,5 @@
-import { Button, Container, ThemeToggle } from '@/shared/ui';
-import useAuthStore from '@/stores/useAuthStore';
+import { Button, Container, ThemeToggle } from '@/shared/ui/index.js';
+import useAuthStore from '@/stores/useAuthStore.js';
 import clsx from 'clsx';
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';

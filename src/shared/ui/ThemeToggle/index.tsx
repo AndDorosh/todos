@@ -1,4 +1,4 @@
-import useThemeStore from '@/stores/useThemeStore';
+import useThemeStore from '@/stores/useThemeStore.js';
 import { Sun, Moon } from 'lucide-react';
 import { FC } from 'react';
 

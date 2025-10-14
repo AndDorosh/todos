@@ -1,7 +1,7 @@
-import TaskList from '@/components/board/TaskList';
-import { Button, Container, Input, Modal, Title } from '@/shared/ui';
-import useTaskStore from '@/stores/useTaskStore';
-import Navbar from '@/widgets/Navbar';
+import TaskList from '@/components/board/TaskList/index.js';
+import { Button, Container, Input, Modal, Title } from '@/shared/ui/index.js';
+import useTaskStore from '@/stores/useTaskStore.js';
+import Navbar from '@/widgets/Navbar/index.js';
 import { FC, useEffect, useState } from 'react';
 
 const BoardPage: FC = () => {
@@ -45,7 +45,7 @@ const BoardPage: FC = () => {
         setError(null);
 
         try {
-            await addTask(title.trim(), { description: description.trim() || null, priority });
+            await addTask(title.trim(), { description: description.trim() || undefined, priority });
             setIsModalOpen(false);
         } catch (err) {
             console.error('Ошибка при добавлении задачи:', err);

@@ -1,4 +1,4 @@
-import { Input, Modal } from '@/shared/ui';
+import { Input, Modal } from '@/shared/ui/index.js';
 import { FC, useEffect, useRef, useState } from 'react';
 
 type TTaskFormValues = {

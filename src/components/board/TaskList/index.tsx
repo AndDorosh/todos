@@ -1,6 +1,6 @@
-import useTaskStore from '@/stores/useTaskStore';
+import useTaskStore from '@/stores/useTaskStore.js';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
-import TaskCard from './TaskCard';
+import TaskCard from './TaskCard/index.js';
 
 const TaskList: React.FC = () => {
     const tasks = useTaskStore((s) => s.tasks);

@@ -1,6 +1,6 @@
 import { create } from 'zustand';
-import { api } from '@/api';
-import { TUser } from '@/types';
+import { api } from '@/api/index.js';
+import { TUser } from '@/types/index.js';
 
 type TAuthActions = {
     login: (email: string, password: string) => Promise<void>;

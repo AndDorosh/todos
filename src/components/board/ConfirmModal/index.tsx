@@ -1,4 +1,4 @@
-import { Modal } from '@/shared/ui';
+import { Modal } from '@/shared/ui/index.js';
 import { FC } from 'react';
 
 type Props = {

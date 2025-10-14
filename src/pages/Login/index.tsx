@@ -1,6 +1,6 @@
-import { Button, Card, Form, Input, Title } from '@/shared/ui';
-import useAuthStore from '@/stores/useAuthStore';
-import Navbar from '@/widgets/Navbar';
+import { Button, Card, Form, Input, Title } from '@/shared/ui/index.js';
+import useAuthStore from '@/stores/useAuthStore.js';
+import Navbar from '@/widgets/Navbar/index.js';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 

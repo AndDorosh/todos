@@ -22,7 +22,6 @@ export const Button: FC<IButtonProps> = ({
         <button
             {...props}
             disabled={isDisabled}
-            aria-busy={loading || null}
             className={clsx(
                 'px-4 py-2 rounded-lg font-medium transition-colors duration-200 cursor-pointer',
                 fullWidth && 'w-full',

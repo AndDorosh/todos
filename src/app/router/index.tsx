@@ -1,7 +1,7 @@
-import BoardPage from '@/pages/Board';
-import LoginPage from '@/pages/Login';
-import RegisterPage from '@/pages/Register';
-import useAuthStore from '@/stores/useAuthStore';
+import BoardPage from '@/pages/Board/index.js';
+import LoginPage from '@/pages/Login/index.js';
+import RegisterPage from '@/pages/Register/index.js';
+import useAuthStore from '@/stores/useAuthStore.js';
 import { useEffect } from 'react';
 import { HashRouter, Navigate, Route, Routes } from 'react-router-dom';
 

@@ -1,9 +1,8 @@
-// src/shared/ui/Modal.tsx
 import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { clsx } from 'clsx';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Button } from '../Button';
+import { Button } from '@/shared/ui/index.js';
 
 interface ModalProps {
     open: boolean;

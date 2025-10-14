@@ -1,9 +1,8 @@
-// src/components/TaskCard.tsx
-import ConfirmModal from '@/components/board/ConfirmModal';
-import TaskFormModal from '@/components/board/TaskFormModal';
-import { IconButton } from '@/shared/ui';
-import useTaskStore from '@/stores/useTaskStore';
-import { TTask } from '@/types';
+import ConfirmModal from '@/components/board/ConfirmModal/index.js';
+import TaskFormModal from '@/components/board/TaskFormModal/index.js';
+import { IconButton } from '@/shared/ui/index.js';
+import useTaskStore from '@/stores/useTaskStore.js';
+import { TTask } from '@/types/index.js';
 import clsx from 'clsx';
 import { Check, Edit2, Star, Trash2 } from 'lucide-react';
 import { FC, memo, useState } from 'react';

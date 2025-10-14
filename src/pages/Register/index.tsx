@@ -1,8 +1,8 @@
-import { Card, Input, Button, Title, Form } from '@/shared/ui';
+import { Card, Input, Button, Title, Form } from '@/shared/ui/index.js';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import useAuthStore from '@/stores/useAuthStore';
-import Navbar from '@/widgets/Navbar';
+import useAuthStore from '@/stores/useAuthStore.js';
+import Navbar from '@/widgets/Navbar/index.js';
 
 const RegisterPage = () => {
     const [name, setName] = useState('');

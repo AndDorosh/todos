@@ -1,6 +1,6 @@
 import { create } from 'zustand';
-import { api } from '@/api';
-import { TTask } from '@/types';
+import { api } from '@/api/index.js';
+import { TTask } from '@/types/index.js';
 
 type TTaskActions = {
     fetchTasks: () => Promise<void>;
