@@ -5,24 +5,15 @@ export type TUser = {
     name?: string;
 };
 
-export type TTodo = {
-    id: string;
-    title: string;
-    status: 'todo' | 'in-progress' | 'done';
-    userId: string;
-};
-
-export type TColumn = {
-    id: string;
-    title: string;
-    order: number;
-};
-
 export type TTask = {
     id: string;
     title: string;
     description?: string | null;
-    columnId: string;
-    order: number;
     userId: string;
+    createdAt: number;
+    activatedAt?: number | null;
+    priority: boolean;
+    priorityAt?: number | null;
+    completed: boolean;
+    completedAt?: number | null;
 };

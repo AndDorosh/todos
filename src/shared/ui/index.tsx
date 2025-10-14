@@ -4,3 +4,7 @@ export { Card } from './Card';
 export { Loader } from './Loader';
 export { ThemeToggle } from './ThemeToggle';
 export { Container } from './Container';
+export { Title } from './Title';
+export { Form } from './Form';
+export { Modal } from './Modal';
+export { IconButton } from './IconButton';

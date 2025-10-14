@@ -22,14 +22,14 @@ const Navbar: FC<{ className?: string }> = ({ className }) => {
                 className
             )}
         >
-            <Container>
+            <Container className="flex-row">
                 <div className="flex items-center gap-3">
                     <Button
                         onClick={() => navigate('/')}
                         className="text-lg font-semibold text-gray-800 dark:text-gray-100 hover:opacity-90"
                         aria-label="Перейти на главную"
                     >
-                        Kanban<span className="text-blue-300">.</span>
+                        TODOS<span className="text-blue-300">.</span>
                     </Button>
                     <span className="hidden sm:inline text-sm text-gray-500 dark:text-gray-300">
                         Управляй задачами просто

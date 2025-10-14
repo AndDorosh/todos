@@ -1,6 +1,8 @@
+// src/shared/ui/Modal.tsx
+import React, { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { clsx } from 'clsx';
 import { motion, AnimatePresence } from 'framer-motion';
-import React from 'react';
 import { Button } from '../Button';
 
 interface ModalProps {
@@ -12,6 +14,8 @@ interface ModalProps {
     onConfirm: () => void;
     onCancel: () => void;
     loading?: boolean;
+    children?: React.ReactNode;
+    disableBackdropClick?: boolean;
 }
 
 export const Modal: React.FC<ModalProps> = ({
@@ -23,40 +27,66 @@ export const Modal: React.FC<ModalProps> = ({
     onConfirm,
     onCancel,
     loading,
+    children,
+    disableBackdropClick = false,
 }) => {
-    return (
+    // Escape -> close
+    useEffect(() => {
+        if (!open) return;
+        const handler = (e: KeyboardEvent) => {
+            if (e.key === 'Escape' && !loading) onCancel();
+        };
+        window.addEventListener('keydown', handler);
+        return () => window.removeEventListener('keydown', handler);
+    }, [open, loading, onCancel]);
+
+    // Guard для SSR (в Vite обычно не нужен, но безопасно)
+    if (typeof document === 'undefined') return null;
+
+    const modal = (
         <AnimatePresence>
             {open && (
                 <motion.div
                     className={clsx(
-                        'fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50'
+                        'fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-[9999]'
                     )}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
+                    onClick={(e) => {
+                        if (disableBackdropClick || loading) return;
+                        if (e.target === e.currentTarget) onCancel();
+                    }}
+                    aria-modal="true"
+                    role="dialog"
                 >
                     <motion.div
                         className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 w-full max-w-sm mx-4"
                         initial={{ scale: 0.95, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 0.95, opacity: 0 }}
-                        transition={{ duration: 0.2 }}
+                        transition={{ duration: 0.18 }}
+                        onClick={(e) => e.stopPropagation()}
                     >
                         {title && (
                             <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-100">
                                 {title}
                             </h2>
                         )}
-                        {description && (
+
+                        {children ? (
+                            <div className="mb-4">{children}</div>
+                        ) : description ? (
                             <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
                                 {description}
                             </p>
-                        )}
+                        ) : null}
+
                         <div className="flex justify-end gap-3">
                             <Button onClick={onCancel} variant="secondary" disabled={loading}>
                                 {cancelText}
                             </Button>
-                            <Button onClick={onConfirm} variant="danger" loading={loading}>
+                            <Button onClick={onConfirm} variant="primary" loading={loading}>
                                 {confirmText}
                             </Button>
                         </div>
@@ -65,4 +95,6 @@ export const Modal: React.FC<ModalProps> = ({
             )}
         </AnimatePresence>
     );
+
+    return createPortal(modal, document.body);
 };
