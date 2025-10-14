@@ -1,73 +1,49 @@
-# React + TypeScript + Vite
+# Todos — Pet Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Небольшoй todo-лист с авторизацией, темами и приоритетами.  
+Проект сделан для портфолио — на React + Vite + Tailwind + Zustand (+ axios). CI / деплой — GitHub Actions → GitHub Pages.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Фичи
+- Авторизация (mock API / MockAPI.io)
+- Список задач (приоритет / выполнено)
+- Оптимистичные обновления (Zustand store)
+- Модальные-окна: добавить / редактировать / удалить
+- Тёмная / светлая тема
+- Плавная анимация перестановок (auto-animate)
+- Tailwind CSS
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Быстрый старт (локально)
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. Клонировать репозиторий:
+```bash
+git clone https://github.com/AndDorosh/todos.git
+cd todos
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Установить зависимости:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+# или
+yarn
 ```
+
+3. Создать файл окружения .env (локально) — пример:
+
+```.env
+VITE_BASE_API=https://68e0043e93207c4b4793781f.mockapi.io/api
+```
+
+4. Запустить dev сервер:
+
+```bash
+npm run dev
+# или
+yarn dev
+```
+
+5. Открой http://localhost:5173
