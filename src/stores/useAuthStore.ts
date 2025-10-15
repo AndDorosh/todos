@@ -26,7 +26,10 @@ const useAuthStore = create<TAuthState>((set) => ({
             try {
                 const { data } = await api.get<TUser[]>('/users', { params: { email } });
 
-                if (data.length > 0) throw new Error('Пользователь с таким email уже существует');
+                if (data.length > 0) {
+                    alert('Пользователь с таким email уже существует');
+                    throw new Error('Пользователь с таким email уже существует');
+                }
 
                 const { data: newUser } = await api.post<TUser>('/users', {
                     name,
@@ -60,7 +63,10 @@ const useAuthStore = create<TAuthState>((set) => ({
             try {
                 const res = await api.get<TUser[]>('/users', { params: { email } });
 
-                if (res.data.length === 0) throw new Error('Неверный email или пароль');
+                if (res.data.length === 0) {
+                    alert('Неверный email или пароль');
+                    throw new Error('Неверный email или пароль');
+                }
 
                 const user = res.data[0];
 
