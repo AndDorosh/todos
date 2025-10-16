@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { api } from '@/api/index.js';
 import { TUser } from '@/types/index.js';
+import axios from 'axios';
 
 type TAuthActions = {
     login: (email: string, password: string) => Promise<void>;
@@ -24,11 +25,32 @@ const useAuthStore = create<TAuthState>((set) => ({
     actions: {
         register: async (name, email, password) => {
             try {
-                const { data } = await api.get<TUser[]>('/users', { params: { email } });
+                let existingUsers: TUser[] = [];
 
-                if (data.length > 0) {
+                try {
+                    const { data } = await api.get<TUser[]>('/users', { params: { email } });
+                    existingUsers = data;
+                } catch (err: unknown) {
+                    if (axios.isAxiosError(err)) {
+                        const status = err.response?.status;
+                        if (status === 404) {
+                            existingUsers = [];
+                        } else {
+                            console.error(
+                                '[auth] Ошибка при проверке существующего пользователя:',
+                                err
+                            );
+                            throw new Error('Ошибка при проверке пользователя');
+                        }
+                    } else {
+                        console.error('[auth] Неожиданная ошибка:', err);
+                        throw new Error('Ошибка при проверке пользователя');
+                    }
+                }
+
+                if (existingUsers.length > 0) {
                     alert('Пользователь с таким email уже существует');
-                    throw new Error('Пользователь с таким email уже существует');
+                    return;
                 }
 
                 const { data: newUser } = await api.post<TUser>('/users', {
@@ -48,13 +70,21 @@ const useAuthStore = create<TAuthState>((set) => ({
                 localStorage.setItem('auth_token', token);
 
                 set({ user: safeUser, token });
-            } catch (err) {
-                console.error('Ошибка при регистрации: ', err);
-
-                if (err instanceof Error) {
+            } catch (err: unknown) {
+                if (axios.isAxiosError(err)) {
+                    console.error(
+                        'Ошибка при регистрации (axios):',
+                        err.response?.data || err.message
+                    );
+                    throw new Error(
+                        err.response?.data?.message || 'Не удалось зарегистрировать пользователя'
+                    );
+                } else if (err instanceof Error) {
+                    console.error('Ошибка при регистрации:', err.message);
                     throw err;
                 } else {
-                    throw new Error('Не удалось зарегестрировать пользователя');
+                    console.error('Неизвестная ошибка при регистрации:', err);
+                    throw new Error('Не удалось зарегистрировать пользователя');
                 }
             }
         },
